@@ -8,7 +8,7 @@
 
 class CheckMigrations
 {
-    protected $remoteUrl = 'http://chetv.local';
+    protected $remoteUrl;
     protected $migrationsDir = '/migrations/';
     protected $thisItem;
 
@@ -18,10 +18,11 @@ class CheckMigrations
     protected $pathMigrationsFolder;
     protected $requestJsonNumber;
 
-    public function __construct($pathMigrationsFolder = './')
+    public function __construct($remoteUrl = '', $pathMigrationsFolder = './')
     {
+        $this->remoteUrl = $remoteUrl;
         $this->pathMigrationsFolder = $pathMigrationsFolder;
-        $requestJsonNumber = abs(intval($_REQUEST['json']));
+        $requestJsonNumber = (isset($_REQUEST['json']) ? $_REQUEST['json'] : 0);
         $this->requestJsonNumber = empty($requestJsonNumber) ? 0 : $requestJsonNumber;
         $this->localItems = [];
         $this->localDiffItems = [];
